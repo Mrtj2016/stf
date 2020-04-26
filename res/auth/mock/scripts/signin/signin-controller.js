@@ -9,7 +9,7 @@ module.exports = function SignInCtrl($scope, $http, CommonService) {
   $scope.submit = function() {
     var data = {
       name: $scope.signin.username.$modelValue
-      , email: $scope.signin.email.$modelValue
+      , password: $scope.signin.password.$modelValue
     }
     $scope.invalid = false
     $http.post('/auth/api/v1/mock', data)
@@ -25,6 +25,11 @@ module.exports = function SignInCtrl($scope, $http, CommonService) {
             }
             break
           case 'InvalidCredentialsError':
+            $scope.error = {
+              $incorrect: true
+            }
+            break
+          case 'AuthenticatedError':
             $scope.error = {
               $incorrect: true
             }
